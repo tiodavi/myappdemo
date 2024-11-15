@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halloween Animation</title>
+    <style>
+        /* 基本樣式 */
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #FFA500;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1 {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            color: #FFA500;
+            text-shadow: 2px 2px 4px #000;
+            font-size: 2.5em;
+            z-index: 10;
+        }
+
+        /* 飄動的南瓜 (Jack-o'-lantern) */
+        .pumpkin {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: url('http://imgur.com/V7DH5ca') no-repeat center;
+            background-size: contain;
+            animation: float 6s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        /* 南瓜浮動動畫 */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* 幽靈樣式 */
+        .ghost {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/9/99/Ghostscript_Ghost_Logo.svg') no-repeat center;
+            background-size: contain;
+            opacity: 0.8;
+            animation: moveAround 10s linear infinite alternate;
+        }
+
+        /* 幽靈的漂浮移動動畫 */
+        @keyframes moveAround {
+            0% {
+                transform: translate(0px, 0px);
+            }
+            25% {
+                transform: translate(50px, -30px) rotate(10deg);
+            }
+            50% {
+                transform: translate(-50px, 30px) rotate(-10deg);
+            }
+            75% {
+                transform: translate(30px, -50px) rotate(5deg);
+            }
+            100% {
+                transform: translate(-30px, 50px) rotate(-5deg);
+            }
+        }
+
+        /* 黑貓樣式 */
+        .cat {
+            position: absolute;
+            bottom: 0;
+            width: 100px;
+            height: 60px;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/4/4f/Black_cat_1.png') no-repeat center;
+            background-size: contain;
+            animation: catWalk 15s linear infinite;
+        }
+
+        /* 黑貓移動動畫 */
+        @keyframes catWalk {
+            0% { left: -100px; }
+            50% { left: 100vw; transform: scaleX(-1); }
+            100% { left: -100px; }
+        }
+
+        /* 蜘蛛樣式 */
+        .spider {
+            position: absolute;
+            top: 0;
+            width: 50px;
+            height: 50px;
+            
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/7/7e/Spider_silhouette.png') no-repeat center;
+            background-size: contain;
+            animation: spiderDrop 8s ease-in-out infinite;
+        }
+
+        /* 蜘蛛上下移動動畫 */
+        @keyframes spiderDrop {
+            0%, 100% { top: 0; }
+            50% { top: 80vh; }
+        }
+
+        /* Z字形移動的球體 */
+        .ball {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #FF4500;
+            border-radius: 50%;
+            animation: zigzag 5s ease-in-out infinite;
+        }
+
+        /* 球體Z字形移動動畫 */
+        @keyframes zigzag {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(100px, 100px); }
+            50% { transform: translate(-100px, 200px); }
+            75% { transform: translate(100px, 300px); }
+            100% { transform: translate(0, 400px); }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎃 Happy Halloween! 🎃</h1>
+    <img src="test5.png" alt="" class="pumpkin">
+    <img src="test5.png" alt="" class="cat">
+    <img src="test5.png" alt="" class="spider">
+    <!-- JavaScript 生成的南瓜、幽靈、黑貓、蜘蛛和Z字形球體 -->
+    <script>
+        // 設定幽靈和南瓜數量
+        const ghostCount = 3;
+        const pumpkinCount = 2;
+
+        // 產生南瓜
+        for (let i = 0; i < pumpkinCount; i++) {
+            let pumpkin = document.createElement('div');
+            pumpkin.className = 'pumpkin';
+            document.body.appendChild(pumpkin);
+            setPosition(pumpkin);
+        }
+
+        // 產生幽靈
+        for (let i = 0; i < ghostCount; i++) {
+            let ghost = document.createElement('div');
+            ghost.className = 'ghost';
+            document.body.appendChild(ghost);
+            setPosition(ghost);
+        }
+
+        // 產生黑貓
+        let cat = document.createElement('div');
+        cat.className = 'cat';
+        document.body.appendChild(cat);
+
+        // 產生蜘蛛
+        let spider = document.createElement('div');
+        spider.className = 'spider';
+        document.body.appendChild(spider);
+        setPosition(spider, true); // 指定蜘蛛位置在頂端
+
+        // 產生Z字形移動的球體
+        let ball = document.createElement('div');
+        ball.className = 'ball';
+        document.body.appendChild(ball);
+        setPosition(ball);
+
+        // 隨機設定初始位置
+        function setPosition(element, topOnly = false) {
+            const x = Math.random() * window.innerWidth;
+            const y = topOnly ? 0 : Math.random() * window.innerHeight;
+            element.style.left = `${x}px`;
+            element.style.top = `${y}px`;
+        }
+
+        // 調整視窗大小時，重新定位幽靈和南瓜元素
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.pumpkin, .ghost').forEach(setPosition);
+        });
+    </script>
+</body>
+</html>
